@@ -115,7 +115,6 @@ package nilsimsa
 import (
 	"fmt"
 	"hash"
-	"math"
 	"strconv"
 )
 
@@ -416,8 +415,22 @@ func BitsDiffHex(n1, n2 string) byte {
 	return 128 - bits
 }
 
-// DiffHex return the 0-1.0 similarity score
-func DiffHex(n1, n2 string) float64 {
-	d := BitsDiffHex(n1, n2)
-	return math.Pow((float64(d+127) / 255.0), 4)
+// DiffHexScore return the 0-1.0 similarity score
+func DiffHexScore(n1, n2 string) float64 {
+	b := BitsDiffHex(n1, n2)
+	return score(b)
+}
+
+// DiffScore return the 0-1.0 similarity score
+func DiffScore(n1, n2 *[Size]byte) float64 {
+	b := BitsDiff(n1, n2)
+	return score(b)
+}
+
+func score(b byte) float64 {
+	p := float64((int8(b - 1))) / 127.0
+	if p < 0 {
+		return 0.0
+	}
+	return p
 }
