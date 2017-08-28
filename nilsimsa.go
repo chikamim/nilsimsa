@@ -113,6 +113,7 @@
 package nilsimsa
 
 import (
+	"errors"
 	"fmt"
 	"hash"
 	"strconv"
@@ -391,33 +392,30 @@ func BitsDiff(n1, n2 *[Size]byte) byte {
 
 // BitsDiffHex compares two Nilsimsa digests hex strings and
 // return the number of bits that differ
-func BitsDiffHex(n1, n2 string) byte {
+func BitsDiffHex(n1, n2 string) (byte, error) {
 	var bits byte
-	if len(n1) != Size*2 {
-		panic("len(n1) != 64")
-	}
-	if len(n2) != Size*2 {
-		panic("len(n2) != 64")
+	if len(n1) != Size*2 || len(n2) != Size*2 {
+		return 0, errors.New("input hex size error")
 	}
 	for i, j := 0, 2; i < Size*2; j += 2 {
 		x, err := strconv.ParseInt(n1[i:j], 16, 16)
 		if err != nil {
-			panic(err)
+			return 0, errors.New("parse hex error")
 		}
 		y, err := strconv.ParseInt(n2[i:j], 16, 16)
 		if err != nil {
-			panic(err)
+			return 0, errors.New("parse hex error")
 		}
 		bits += popc[0xff&x^y]
 		i = j
 	}
 
-	return 128 - bits
+	return 128 - bits, nil
 }
 
 // DiffHexScore return the 0-1.0 similarity score
 func DiffHexScore(n1, n2 string) float64 {
-	b := BitsDiffHex(n1, n2)
+	b, _ := BitsDiffHex(n1, n2)
 	return score(b)
 }
 

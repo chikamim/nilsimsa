@@ -22,6 +22,12 @@ func TestNilsimsa(t *testing.T) {
 
 	// Doing it the long way using incremental update
 	d := New()
+	if d.BlockSize() != 8 {
+		t.Fatalf("BlockSize is not 8")
+	}
+	if d.Size() != 32 {
+		t.Fatalf("Size is not 32")
+	}
 	io.WriteString(d, "abcd")
 	io.WriteString(d, "efgh")
 	x = fmt.Sprintf("%x", d.Sum(nil))
@@ -55,7 +61,7 @@ func TestNilsimsa(t *testing.T) {
 
 	x1 := HexSum([]byte("abcdefghijk"))
 	x2 := HexSum([]byte("abcdefgh"))
-	bitsDiff = BitsDiffHex(x1, x2)
+	bitsDiff, _ = BitsDiffHex(x1, x2)
 	if bitsDiff != 109 {
 		t.Fatalf("bitsDiff(%d)", bitsDiff)
 	}
@@ -70,7 +76,7 @@ func TestNilsimsa(t *testing.T) {
 	if x2 != "8a5355d09968f8d451efeb309919949b73e211af7952c970f245403b8cb7a035" {
 		t.Fatalf(x2)
 	}
-	bitsDiff = BitsDiffHex(x1, x2)
+	bitsDiff, _ = BitsDiffHex(x1, x2)
 	if bitsDiff != 96 {
 		t.Fatalf("bitsDiff(%d)", bitsDiff)
 	}
@@ -84,9 +90,37 @@ func TestNilsimsa(t *testing.T) {
 	if x2 != "8a5355d09968f8d451efeb309919949b73e211af7952c970f245403b8cb7a035" {
 		t.Fatalf(x2)
 	}
-	bitsDiff = BitsDiffHex(x1, x2)
+	bitsDiff, _ = BitsDiffHex(x1, x2)
 	if bitsDiff != 35 {
 		t.Fatalf("bitsDiff(%d)", bitsDiff)
+	}
+
+	x1 = "8a5355d09968f8d451efeb309919949b73e211af7952c970f245403b8cb7a0zz"
+	x2 = "8a5355d09968f8d451efeb309919949b73e211af7952c970f245403b8cb7a035"
+	bitsDiff, err := BitsDiffHex(x1, x2)
+	if err == nil || err.Error() != "parse hex error" {
+		t.Fatalf("parse hex error expected but no error")
+	}
+
+	x1 = "8a5355d09968f8d451efeb309919949b73e211af7952c970f245403b8cb7a035"
+	x2 = "8a5355d09968f8d451efeb309919949b73e211af7952c970f245403b8cb7a0zz"
+	bitsDiff, err = BitsDiffHex(x1, x2)
+	if err == nil || err.Error() != "parse hex error" {
+		t.Fatalf("parse hex error expected but no error")
+	}
+
+	x1 = "8beb55d08d78fed441ede9301390b49b716"
+	x2 = "8a5355d09968f8d451efeb309919949b73e211af7952c970f245403b8cb7a035"
+	bitsDiff, err = BitsDiffHex(x1, x2)
+	if err == nil || err.Error() != "input hex size error" {
+		t.Fatalf("input hex size error expected but no error")
+	}
+
+	x1 = "8a5355d09968f8d451efeb309919949b73e211af7952c970f245403b8cb7a035"
+	x2 = "8beb55d08d78fed441ede9301390b49b716"
+	bitsDiff, err = BitsDiffHex(x1, x2)
+	if err != nil && err.Error() != "input hex size error" {
+		t.Fatalf("input hex size error expected but no error")
 	}
 
 	digest1 = Sum([]byte("C.setTabChangeCallbackWrapper(h.ih())"))
