@@ -5,8 +5,7 @@ code.google.com/p/py-nilsimsa
 but follows the conventions establish by the md5 package in the standard lib
 
 The Java implementaition at
-https://github.com/weblyzard/nilsimsa/
-blob/master/src/main/java/com/weblyzard/lib/string/nilsimsa/Nilsimsa.java
+https://github.com/weblyzard/nilsimsa/blob/master/src/main/java/com/weblyzard/lib/string/nilsimsa/Nilsimsa.java
 was also consulted.
 
 There is a discussion about using hash to score string similarities
