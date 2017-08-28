@@ -1,9 +1,9 @@
 package nilsimsa
 
 import (
-	"testing"
 	"fmt"
 	"io"
+	"testing"
 )
 
 // tests the nilsimsa hash by choosing a random test file
@@ -64,10 +64,10 @@ func TestNilsimsa(t *testing.T) {
 		"(srcPath, dstPath)"))
 	x2 = HexSum([]byte("return diff.NewSequenceMatcherFromFiles" +
 		"(dstPath, srcPath)"))
-	if x1 != "8beb55d08d78fed441ede9301390b49b716a11af3962db70b24540338cb70035"{
+	if x1 != "8beb55d08d78fed441ede9301390b49b716a11af3962db70b24540338cb70035" {
 		t.Fatalf(x1)
 	}
-	if x2 != "8a5355d09968f8d451efeb309919949b73e211af7952c970f245403b8cb7a035"{
+	if x2 != "8a5355d09968f8d451efeb309919949b73e211af7952c970f245403b8cb7a035" {
 		t.Fatalf(x2)
 	}
 	bitsDiff = BitsDiffHex(x1, x2)
@@ -78,10 +78,10 @@ func TestNilsimsa(t *testing.T) {
 	x1 = HexSum([]byte("return diff.XYZ"))
 	x2 = HexSum([]byte("return diff.NewSequenceMatcherFromFiles" +
 		"(dstPath, srcPath)"))
-	if x1 != "84125570884ae840f042ea400400009a721891002011a071225247f7a5241018"{
+	if x1 != "84125570884ae840f042ea400400009a721891002011a071225247f7a5241018" {
 		t.Fatalf(x1)
 	}
-	if x2 != "8a5355d09968f8d451efeb309919949b73e211af7952c970f245403b8cb7a035"{
+	if x2 != "8a5355d09968f8d451efeb309919949b73e211af7952c970f245403b8cb7a035" {
 		t.Fatalf(x2)
 	}
 	bitsDiff = BitsDiffHex(x1, x2)
@@ -326,138 +326,175 @@ public class Nilsimsa {
 	}
 }
 
-
 func TestNilsimsa3(t *testing.T) {
-    list := [...]string{
-        "a",
-        "ab",
-        "abc",
-        "abcd",
-        "abcde",
-        "abcdef",
-        "abcdefg",
-        "abcdefgh",
-        "abcdefghi",
-        "abcdefghij",
-        "abcdefghijk",
-        "abcdefghijkl",
-        "abcdefghijklm",
-        "abcdefghijklmn",
-        "abcdefghijklmno",
-        "abcdefghijklmnop",
-        "abcdefghijklmnopq",
-        "abcdefghijklmnopqr",
-        "abcdefghijklmnopqrs",
-        "abcdefghijklmnopqrst",
-        "abcdefghijklmnopqrstu",
-        "abcdefghijklmnopqrstuv",
-        "abcdefghijklmnopqrstuvw",
-        "abcdefghijklmnopqrstuvwx",
-        "abcdefghijklmnopqrstuvwxy",
-        "abcdefghijklmnopqrstuvwxyz",
+	list := [...]string{
+		"a",
+		"ab",
+		"abc",
+		"abcd",
+		"abcde",
+		"abcdef",
+		"abcdefg",
+		"abcdefgh",
+		"abcdefghi",
+		"abcdefghij",
+		"abcdefghijk",
+		"abcdefghijkl",
+		"abcdefghijklm",
+		"abcdefghijklmn",
+		"abcdefghijklmno",
+		"abcdefghijklmnop",
+		"abcdefghijklmnopq",
+		"abcdefghijklmnopqr",
+		"abcdefghijklmnopqrs",
+		"abcdefghijklmnopqrst",
+		"abcdefghijklmnopqrstu",
+		"abcdefghijklmnopqrstuv",
+		"abcdefghijklmnopqrstuvw",
+		"abcdefghijklmnopqrstuvwx",
+		"abcdefghijklmnopqrstuvwxy",
+		"abcdefghijklmnopqrstuvwxyz",
 	}
 
-    results := [...]string{
-        "0000000000000000000000000000000000000000000000000000000000000000",
-        "0000000000000000000000000000000000000000000000000000000000000000",
-        "0040000000000000000000000000000000000000000000000000000000000000",
-        "0440000000000000000000000000000000100000000000000008000000000000",
-        "0440008000000000000000000000000000100020001200000008001200000050",
-        "04c0018000000000000000000000000004188020001200000088001280000058",
-        "04c8118000000000030000000000002004188020001208004088001280000078",
-        "14c8118000000000030800000004042004189020001308014088003280000078",
-        "14c8118400000000030800010804043004189020021318094098003280000078",
-        "14c81184000000000308200108040430041890200217580d4098103280000078",
-        "14c811840010000c0328200108040630041890200217582d4098103280000078",
-        "14c811840010000ca328200108044630041890200a17586d4298103280000078",
-        "14ca11850010000ca328200188044630041898200a17586dc2d8103284000078",
-        "14ca11850030004ca3a8200188044630041898200a17586dc2d8107284000078",
-        "14ca11850032004ca3a8284188044730041898200a17586dc2d8107384000078",
-        "94ca11850432005ca3a828418804473004199c200a17586dc2d8107384004178",
-        "94ca11850433005ca3a82841880447341419be200a17586dc2d8107384004178",
-        "94ca11850433005ca3a82841a88457341419be201a17586dc6d8107384084178",
-        "94ca11850533005ca3b82841a88657361419be201a17586dc6d8107384084178",
-        "94ca11850533005ca3b82841aa8657371419be201a17587dc6d81077840c4178",
-        "94ca15850533005ca3b92841aa8657371419be201a17587dd6d81077844cc178",
-        "94ca15850533005ca3b92849aa8657371419be201a17587fd6d81077844cc978",
-        "94ca15850533045cabb92869aa8657371419bea01a17587fd6f81077c44cc978",
-        "94ca95850533045cabb93869aa8657371499beb01a17587fd6f8107fc44cc978",
-        "94ca95850733045cabb93869aa8657373499beb01a17587fd6f9107fc54cc978",
-        "94ca95850773045cabb93869ba8657373499beb81a17587fd6f9107fc54cc978",
+	results := [...]string{
+		"0000000000000000000000000000000000000000000000000000000000000000",
+		"0000000000000000000000000000000000000000000000000000000000000000",
+		"0040000000000000000000000000000000000000000000000000000000000000",
+		"0440000000000000000000000000000000100000000000000008000000000000",
+		"0440008000000000000000000000000000100020001200000008001200000050",
+		"04c0018000000000000000000000000004188020001200000088001280000058",
+		"04c8118000000000030000000000002004188020001208004088001280000078",
+		"14c8118000000000030800000004042004189020001308014088003280000078",
+		"14c8118400000000030800010804043004189020021318094098003280000078",
+		"14c81184000000000308200108040430041890200217580d4098103280000078",
+		"14c811840010000c0328200108040630041890200217582d4098103280000078",
+		"14c811840010000ca328200108044630041890200a17586d4298103280000078",
+		"14ca11850010000ca328200188044630041898200a17586dc2d8103284000078",
+		"14ca11850030004ca3a8200188044630041898200a17586dc2d8107284000078",
+		"14ca11850032004ca3a8284188044730041898200a17586dc2d8107384000078",
+		"94ca11850432005ca3a828418804473004199c200a17586dc2d8107384004178",
+		"94ca11850433005ca3a82841880447341419be200a17586dc2d8107384004178",
+		"94ca11850433005ca3a82841a88457341419be201a17586dc6d8107384084178",
+		"94ca11850533005ca3b82841a88657361419be201a17586dc6d8107384084178",
+		"94ca11850533005ca3b82841aa8657371419be201a17587dc6d81077840c4178",
+		"94ca15850533005ca3b92841aa8657371419be201a17587dd6d81077844cc178",
+		"94ca15850533005ca3b92849aa8657371419be201a17587fd6d81077844cc978",
+		"94ca15850533045cabb92869aa8657371419bea01a17587fd6f81077c44cc978",
+		"94ca95850533045cabb93869aa8657371499beb01a17587fd6f8107fc44cc978",
+		"94ca95850733045cabb93869aa8657373499beb01a17587fd6f9107fc54cc978",
+		"94ca95850773045cabb93869ba8657373499beb81a17587fd6f9107fc54cc978",
 	}
 
-    compareResults := [...]byte {
-        128,
-        127,
-        125,
-        120,
-        120,
-        120,
-        120,
-        120,
-        123,
-        122,
-        122,
-        121,
-        124,
-        123,
-        121,
-        123,
-        122,
-        124,
-        123,
-        123,
-        125,
-        122,
-        123,
-        124,
-        125,
+	compareResults := [...]byte{
+		128,
+		127,
+		125,
+		120,
+		120,
+		120,
+		120,
+		120,
+		123,
+		122,
+		122,
+		121,
+		124,
+		123,
+		121,
+		123,
+		122,
+		124,
+		123,
+		123,
+		125,
+		122,
+		123,
+		124,
+		125,
 	}
 
-    step3CompareResults := [...]byte{
-        116,
-        104,
-        109,
-        111,
-        111,
-        113,
-        114,
-        116,
+	step3CompareResults := [...]byte{
+		116,
+		104,
+		109,
+		111,
+		111,
+		113,
+		114,
+		116,
 	}
 
-    if len(list) != len(results) {
+	if len(list) != len(results) {
 		panic("len(list) != len(results)")
 	}
-    for i, x := range(list) {
-        hex := HexSum([]byte(x))
+	for i, x := range list {
+		hex := HexSum([]byte(x))
 		if hex != results[i] {
 			t.Fatalf(hex)
 		}
 	}
 
-    if len(list) != len(compareResults) + 1 {
+	if len(list) != len(compareResults)+1 {
 		panic("len(list) != len(compareResults) + 1")
 	}
-    last := Sum([]byte(list[0]))
-    for i, x := range list[1:] {
+	last := Sum([]byte(list[0]))
+	for i, x := range list[1:] {
 		sum := Sum([]byte(x))
 		bits := BitsDiff(&sum, &last)
 		if bits != compareResults[i] {
 			t.Fatalf("%x", bits)
 		}
-        last = sum
+		last = sum
 	}
 
-    j := 0
-    last = Sum([]byte(list[0]))
-    for i := 4; i < len(list); i += 3 {
+	j := 0
+	last = Sum([]byte(list[0]))
+	for i := 4; i < len(list); i += 3 {
 		sum := Sum([]byte(list[i]))
 		bits := BitsDiff(&sum, &last)
 		if bits != step3CompareResults[j] {
 			t.Fatalf("%x", bits)
 		}
-        last = sum
-        j += 1
+		last = sum
+		j += 1
 	}
 }
 
+func TestHexDiffScore(t *testing.T) {
+	testCases := []struct {
+		a    string
+		b    string
+		want float64
+	}{
+		{HexSum([]byte("abcdefghijklmnopqrstuvwxyz")), HexSum([]byte("abcdefghijklmnopqrstuvwxyz")), 1.0},
+		{HexSum([]byte("abcdefghijklmnopqrstuvwxyz")), HexSum([]byte("abcdefghijklm")), 0.5118110236220472},
+		{HexSum([]byte("abcdefghijklmnopqrstuvwxyz")), HexSum([]byte("abcd")), 0.007874015748031496},
+		{HexSum([]byte("abcdefghijklmnopqrstuvwxyz")), HexSum([]byte("1")), 0},
+	}
+
+	for _, tc := range testCases {
+		got := DiffHexScore(tc.a, tc.b)
+		if got != tc.want {
+			t.Errorf("diff(%q,%q)  got %v, want %v", tc.a, tc.b, got, tc.want)
+		}
+	}
+}
+
+func TestDiffScore(t *testing.T) {
+	testCases := []struct {
+		a    [32]byte
+		b    [32]byte
+		want float64
+	}{
+		{Sum([]byte("abcdefghijklmnopqrstuvwxyz")), Sum([]byte("abcdefghijklmnopqrstuvwxyz")), 1.0},
+		{Sum([]byte("abcdefghijklmnopqrstuvwxyz")), Sum([]byte("abcdefghijklm")), 0.5118110236220472},
+		{Sum([]byte("abcdefghijklmnopqrstuvwxyz")), Sum([]byte("abcd")), 0.007874015748031496},
+		{Sum([]byte("abcdefghijklmnopqrstuvwxyz")), Sum([]byte("1")), 0},
+	}
+	for _, tc := range testCases {
+		got := DiffScore(&tc.a, &tc.b)
+		if got != tc.want {
+			t.Errorf("got %v, want %v", got, tc.want)
+		}
+	}
+}
