@@ -532,3 +532,21 @@ func TestDiffScore(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkSum(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Sum([]byte("abcdefghijk"))
+	}
+}
+
+func BenchmarkHexSum(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		HexSum([]byte("abcdefghijk"))
+	}
+}
+
+func BenchmarkBitsDiffHex(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		BitsDiffHex("0000000000000000000000000000000000000000000000000000000000000000", "94ca95850773045cabb93869ba8657373499beb81a17587fd6f9107fc54cc978")
+	}
+}
